@@ -2,6 +2,37 @@
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
 
+const menus = Array.from(sidebar.querySelectorAll('ul li')).slice(1); // excludes first li
+
+const submenus = Array.from(document.getElementsByClassName('sub-menu'));
+
+document.addEventListener('DOMContentLoaded', function(){
+    menus.forEach(m => {
+        m.addEventListener('click', function(event){
+            resetActiveLinks();
+            m.classList.add('active');
+        });
+    });
+
+    submenus.forEach(sm => {
+        let submenuItems = sm.querySelectorAll('div > li'); // Get all li elements
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function(event) {
+                setTimeout(() => {
+                    document.querySelectorAll('.sub-menu li').forEach(li => {
+                        li.classList.remove('active'); // Remove active from all
+                    });
+    
+                    item.classList.add('active'); // Add active class to the clicked item
+                    item.closest('li').classList.add('active');
+                }, 10); // Runs after all event handlers are executed
+            });
+        });
+    });
+    
+
+});
+
 function toggleSideBar(){
     sidebar.classList.toggle('close');
     toggleButton.classList.toggle('rotate');
@@ -28,5 +59,11 @@ function closeAllSubMenus(){
     Array.from(sidebar.getElementsByClassName('show')).forEach(ul => {
         ul.classList.remove('show');
         ul.previousElementSibling.classList.remove('rotate');
+    });
+}
+
+function resetActiveLinks(){
+    menus.forEach(menu => {
+        menu.classList.remove('active');
     });
 }
