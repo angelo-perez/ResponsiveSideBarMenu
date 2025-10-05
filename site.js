@@ -4,13 +4,13 @@ const sidebar = document.getElementById('sidebar');
 
 const menus = Array.from(sidebar.querySelectorAll('ul li')).slice(1); // excludes first li
 
-const submenus = Array.from(document.getElementsByClassName('sub-menu'));
+const submenus = Array.from(document.getElementsByClassName('a-sub-menu'));
 
 document.addEventListener('DOMContentLoaded', function(){
     menus.forEach(m => {
         m.addEventListener('click', function(event){
             resetActiveLinks();
-            m.classList.add('active');
+            m.classList.add('is-active');
         });
     });
 
@@ -19,12 +19,12 @@ document.addEventListener('DOMContentLoaded', function(){
         submenuItems.forEach(item => {
             item.addEventListener('click', function(event) {
                 setTimeout(() => {
-                    document.querySelectorAll('.sub-menu li').forEach(li => {
-                        li.classList.remove('active'); // Remove active from all
+                    document.querySelectorAll('.a-sub-menu li').forEach(li => {
+                        li.classList.remove('is-active'); // Remove active from all
                     });
     
-                    item.classList.add('active'); // Add active class to the clicked item
-                    item.closest('li').classList.add('active');
+                    item.classList.add('is-active'); // Add active class to the clicked item
+                    item.closest('li').classList.add('is-active');
                 }, 10); // Runs after all event handlers are executed
             });
         });
@@ -64,6 +64,6 @@ function closeAllSubMenus(){
 
 function resetActiveLinks(){
     menus.forEach(menu => {
-        menu.classList.remove('active');
+        menu.classList.remove('is-active');
     });
 }
